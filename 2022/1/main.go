@@ -8,6 +8,23 @@ import (
 	"strconv"
 )
 
+func sum(arr *[]int64) (sum int64) {
+	for _, val := range *arr {
+		sum += val
+	}
+	return
+}
+
+func insert(arr *[]int64, num int64) {
+	for i, val := range *arr {
+		if num > val {
+			temp := (*arr)[i]
+			(*arr)[i] = num
+			num = temp
+		}
+	}
+}
+
 func main() {
 	f, err := os.Open("input.txt")
 	if err != nil {
@@ -17,26 +34,20 @@ func main() {
 
 	scanner := bufio.NewScanner(f)
 
-	var mostCals int64 = 0
-	mostElf := 1
+	var mostCals []int64 = []int64{0, 0, 0}
 
 	var currCals int64 = 0
-	currElf := 1
 
 	for scanner.Scan() {
 		num, err := strconv.ParseInt(scanner.Text(), 10, 64)
 		if err != nil {
 			//fmt.Println("---")
-			if currCals > mostCals {
-				mostCals = currCals
-				mostElf = currElf
-			}
-			currElf++
+			insert(&mostCals, currCals)
 			currCals = 0
 			continue
 		}
 		currCals += num
 		//fmt.Println(num)
 	}
-	fmt.Println(mostCals, " : ", mostElf)
+	fmt.Println(sum(&mostCals))
 }
