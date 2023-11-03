@@ -26,7 +26,7 @@ func insert(arr *[]int64, num int64) {
 }
 
 func main() {
-	f, err := os.Open("input.txt")
+	f, err := os.Open("./2022/1/input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -49,5 +49,6 @@ func main() {
 		currCals += num
 		//fmt.Println(num)
 	}
-	fmt.Println(sum(&mostCals))
+	fmt.Println("Sum: ", sum(&mostCals))
+	fmt.Println("Top: ", mostCals[0])
 }
